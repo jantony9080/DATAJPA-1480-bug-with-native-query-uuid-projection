@@ -14,7 +14,7 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
     @Query(value = "SELECT p.name FROM person p WHERE p.id = :id", nativeQuery = true)
     PersonName selectName(@Param("id") UUID id);
 
-    @Query(value = "SELECT p.id FROM person p WHERE p.id = :id", nativeQuery = true)
+    @Query(value = "SELECT cast(p.id as varchar) as id FROM person p WHERE p.id = :id", nativeQuery = true)
     PersonId selectId(@Param("id") UUID id);
 
 }

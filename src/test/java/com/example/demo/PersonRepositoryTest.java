@@ -151,4 +151,18 @@ class PersonRepositoryTest {
 		Assertions.assertEquals(id, reloadedId);
 	}
 
+	@Test
+	void selectNativeJpaNoTargetClassCasting() {
+
+		Person p = new Person();
+		p.setName("Daisy");
+		UUID id = personRepository.save(p).getId();
+
+		Object reloadedId = entityManager //
+				.createNativeQuery("select CAST (id AS varchar) AS id from Person") //
+				.getSingleResult();
+
+		Assertions.assertEquals(id, reloadedId);
+	}
+
 }
